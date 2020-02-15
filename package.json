@@ -1,0 +1,40 @@
+{
+  "name": "hotreads",
+  "version": "1.0.0",
+  "description": "goodread-like service for nomad hackathon",
+  "main": "./src/server.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node ./src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MadCow0214/hotreads.git"
+  },
+  "author": "sonhansung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MadCow0214/hotreads/issues"
+  },
+  "homepage": "https://github.com/MadCow0214/hotreads#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "graphql-tools": "^4.0.6",
+    "graphql-yoga": "^1.18.3",
+    "jsonwebtoken": "^8.5.1",
+    "merge-graphql-schemas": "^1.7.6",
+    "morgan": "^1.9.1",
+    "nodemailer": "^6.4.2",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "prisma-client-lib": "^1.34.10"
+  }
+}

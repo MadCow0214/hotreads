@@ -1,0 +1,35 @@
+type User {
+  id: ID! @id
+  nickName: String! @unique
+  firstName: String
+  lastName: String
+  email: String! @unique
+  uploadedBooks: [Book!]! @relation(name:"UserUploadBooks")
+  wantedBooks: [Book!]! @relation(link: TABLE, name:"UsersWantedBooks")
+  reviews: [Review!]! @relation(onDelete:CASCADE)
+}
+
+type Book {
+  id: ID! @id
+  title: String! @unique
+  author: String!
+  image: String
+  uploader: User! @relation(name:"UserUploadBooks")
+  wantedUsers: [User!]! @relation(name:"UsersWantedBooks")
+  tags: [Tag!]!
+  reviews: [Review!]!
+}
+
+type Review {
+  id: ID! @id
+  user: User!
+  book: Book!
+  text: String
+  star: Int!
+}
+
+type Tag {
+  id: ID! @id
+  name: String! @unique
+  books: [Book!]!
+}
