@@ -1,0 +1,35 @@
+type User {
+  id: ID!
+  nickName: String!
+  firstName: String
+  lastName: String
+  email: String!
+  uploadedBooks: [Book!]!
+  wantedBooks: [Book!]!
+  reviews: [Review!]!
+}
+
+type Book {
+  id: ID!
+  title: String!
+  author: String!
+  image: String
+  uploader: User!
+  wantedUsers: [User!]!
+  tags: [Tag!]!
+  reviews: [Review!]!
+}
+
+type Review {
+  id: ID!
+  user: User!
+  book: Book!
+  text: String
+  star: Int!
+}
+
+type Tag {
+  id: ID!
+  name: String!
+  books: [Book!]!
+}
