@@ -2,18 +2,17 @@ import "./env";
 import { GraphQLServer } from "graphql-yoga";
 import logger from "morgan";
 import schema from "./schema";
-//import "./passport";
-//import { authenticateJwt } from "./passport";
+import "./passport";
+import { authenticateJwt } from "./passport";
+import { checkAuthenticated } from "./middlewares";
 
 const server = new GraphQLServer({
   schema,
-  context: ({ request }) => ({ request })
+  context: ({ request }) => ({ request, checkAuthenticated })
 });
 
 server.express.use(logger("dev"));
-//server.express.use(authenticateJwt);
+server.express.use(authenticateJwt);
 
 const PORT = process.env.PORT || 4000;
-server.start({ port: PORT }, () =>
-  console.log(`Server running on port ${PORT}`)
-);
+server.start({ port: PORT }, () => console.log(`Server running on port ${PORT}`));

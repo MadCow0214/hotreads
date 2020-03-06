@@ -1,21 +1,22 @@
 type User {
   id: ID! @id
-  nickName: String! @unique
+  nickName: String @unique
   firstName: String
   lastName: String
   email: String! @unique
-  uploadedBooks: [Book!]! @relation(name:"UserUploadBooks")
-  wantedBooks: [Book!]! @relation(link: TABLE, name:"UsersWantedBooks")
+  avatar: String
+  uploadedBooks: [Book!]! @relation(name:"BookUploadedByUser")
+  wantedBooks: [Book!]! @relation(link: TABLE, name:"BookWantedByUser")
   reviews: [Review!]! @relation(onDelete:CASCADE)
 }
 
 type Book {
   id: ID! @id
   title: String! @unique
-  author: String!
+  author: Author!
   image: String
-  uploader: User! @relation(name:"UserUploadBooks")
-  wantedUsers: [User!]! @relation(name:"UsersWantedBooks")
+  uploader: User! @relation(name:"BookUploadedByUser")
+  wantedUsers: [User!]! @relation(name:"BookWantedByUser")
   tags: [Tag!]!
   reviews: [Review!]!
 }
@@ -29,6 +30,12 @@ type Review {
 }
 
 type Tag {
+  id: ID! @id
+  name: String! @unique
+  books: [Book!]!
+}
+
+type Author {
   id: ID! @id
   name: String! @unique
   books: [Book!]!

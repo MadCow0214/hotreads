@@ -33,3 +33,9 @@ type Tag {
   name: String!
   books: [Book!]!
 }
+
+type Author {
+  id: ID!
+  name: String!
+  books: [Book!]!
+}
