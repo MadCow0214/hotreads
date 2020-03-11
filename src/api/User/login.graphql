@@ -1,0 +1,8 @@
+type LoginResult {
+  error: Int
+  token: String
+}
+
+type Query {
+  login(email: String!, password: String!): LoginResult!
+}

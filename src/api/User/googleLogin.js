@@ -1,13 +1,12 @@
 import { prisma } from "../../../generated/prisma-client";
 import { OAuth2Client } from "google-auth-library";
 import jwt from "jsonwebtoken";
-import { checkAuthenticated } from "../../middlewares";
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export default {
   Mutation: {
-    googleLogin: async (_, args, { request }) => {
+    googleLogin: async (_, args, { request, checkAuthenticated }) => {
       checkAuthenticated(request, false);
 
       const { tokenId } = args;

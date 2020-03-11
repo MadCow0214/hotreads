@@ -28,8 +28,6 @@ export default {
         authorData = await prisma.createAuthor({ name: author });
       }
 
-      console.log(tagIds);
-
       return prisma.createBook({
         title,
         author: { connect: { id: authorData.id } },

@@ -5,6 +5,8 @@ type User {
   lastName: String
   email: String! @unique
   avatar: String
+  password: String!
+  verifyCode: String
   uploadedBooks: [Book!]! @relation(name:"BookUploadedByUser")
   wantedBooks: [Book!]! @relation(link: TABLE, name:"BookWantedByUser")
   reviews: [Review!]! @relation(onDelete:CASCADE)

@@ -1,0 +1,13 @@
+type RegisterUserResult {
+  error: Int
+}
+
+type Mutation {
+  registerUser(
+    nickName: String!
+    firstName: String
+    lastName: String
+    email: String!
+    password: String!
+  ): RegisterUserResult!
+}

@@ -1,0 +1,8 @@
+type VerifyUserResult {
+  error: Int
+  token: String
+}
+
+type Mutation {
+  verifyUser(email: String!, verifyCode: String!): VerifyUserResult!
+}
