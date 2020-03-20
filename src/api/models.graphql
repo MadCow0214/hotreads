@@ -4,6 +4,7 @@ type User {
   firstName: String
   lastName: String
   email: String!
+  avatar: String
   uploadedBooks: [Book!]!
   wantedBooks: [Book!]!
   reviews: [Review!]!

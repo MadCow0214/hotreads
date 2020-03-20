@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export default {
-  Query: {
+  Mutation: {
     login: async (_, args, { request, checkAuthenticated }) => {
       checkAuthenticated(request, false);
 

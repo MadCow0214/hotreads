@@ -14,6 +14,11 @@ export default {
       const verifyCode = generateVerifyCode();
       const password = await bcrypt.hash(plainPassword, 10);
 
+      const checkNickName = await prisma.$exists.user({ nickName });
+      if (checkNickName) {
+        return { error: 1 };
+      }
+
       const user = await prisma.user({ email });
       if (user) {
         if (user.verifyCode) {

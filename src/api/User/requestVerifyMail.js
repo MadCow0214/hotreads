@@ -2,7 +2,7 @@ import { prisma } from "../../../generated/prisma-client";
 import { sendVerifyMail } from "../../util";
 
 export default {
-  Query: {
+  Mutation: {
     requestVerifyMail: async (_, args, { request, checkAuthenticated }) => {
       checkAuthenticated(request, false);
 
@@ -19,6 +19,8 @@ export default {
       }
 
       sendVerifyMail(email, user.verifyCode);
+
+      return true;
     }
   }
 };
