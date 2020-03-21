@@ -13,8 +13,14 @@ type User {
 type Book {
   id: ID!
   title: String!
+  subTitle: String!
+  category: Int!
   author: String!
+  company: String
   image: String
+  desc: String
+  publishDate: String!
+  createdAt: String!
   uploader: User!
   wantedUsers: [User!]!
   tags: [Tag!]!
@@ -27,6 +33,7 @@ type Review {
   book: Book!
   text: String
   star: Int!
+  createdAt: String!
 }
 
 type Tag {

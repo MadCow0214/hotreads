@@ -5,8 +5,6 @@ export default {
     me: (_, __, { request, checkAuthenticated }) => {
       checkAuthenticated(request, true);
 
-      console.log(request.user);
-
       return request.user;
     }
   }

@@ -15,12 +15,18 @@ type User {
 type Book {
   id: ID! @id
   title: String! @unique
-  author: Author!
+  subTitle: String
+  category: Int!
+  author: Author
+  company: String
   image: String
-  uploader: User! @relation(name:"BookUploadedByUser")
+  desc: String
+  publishDate: DateTime!
+  createdAt: DateTime! @createdAt
+  uploader: User @relation(name:"BookUploadedByUser")
   wantedUsers: [User!]! @relation(name:"BookWantedByUser")
   tags: [Tag!]!
-  reviews: [Review!]!
+  reviews: [Review!]! @relation(onDelete:CASCADE)
 }
 
 type Review {
@@ -29,6 +35,7 @@ type Review {
   book: Book!
   text: String
   star: Int!
+  createdAt: DateTime! @createdAt
 }
 
 type Tag {
