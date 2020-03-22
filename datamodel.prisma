@@ -25,7 +25,6 @@ type Book {
   createdAt: DateTime! @createdAt
   uploader: User @relation(name:"BookUploadedByUser")
   wantedUsers: [User!]! @relation(name:"BookWantedByUser")
-  tags: [Tag!]!
   reviews: [Review!]! @relation(onDelete:CASCADE)
 }
 
@@ -38,14 +37,9 @@ type Review {
   createdAt: DateTime! @createdAt
 }
 
-type Tag {
-  id: ID! @id
-  name: String! @unique
-  books: [Book!]!
-}
-
 type Author {
   id: ID! @id
   name: String! @unique
+  desc: String
   books: [Book!]!
 }

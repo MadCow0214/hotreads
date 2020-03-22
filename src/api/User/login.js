@@ -14,13 +14,13 @@ export default {
         return { error: 1 };
       }
 
-      if (user.verifyCode) {
-        return { error: 2 };
-      }
-
       const result = await bcrypt.compare(password, user.password);
 
       if (!result) {
+        return { error: 2 };
+      }
+
+      if (user.verifyCode) {
         return { error: 3 };
       }
 

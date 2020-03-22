@@ -15,7 +15,7 @@ type Book {
   title: String!
   subTitle: String!
   category: Int!
-  author: String!
+  author: Author
   company: String
   image: String
   desc: String
@@ -23,8 +23,10 @@ type Book {
   createdAt: String!
   uploader: User!
   wantedUsers: [User!]!
-  tags: [Tag!]!
   reviews: [Review!]!
+
+  # Computed Fields
+  wantedUserCount: Int!
 }
 
 type Review {
@@ -36,14 +38,9 @@ type Review {
   createdAt: String!
 }
 
-type Tag {
-  id: ID!
-  name: String!
-  books: [Book!]!
-}
-
 type Author {
   id: ID!
   name: String!
+  desc: String
   books: [Book!]!
 }
