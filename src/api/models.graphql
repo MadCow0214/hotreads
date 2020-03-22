@@ -27,6 +27,7 @@ type Book {
 
   # Computed Fields
   wantedUserCount: Int!
+  isWanted: Boolean!
 }
 
 type Review {

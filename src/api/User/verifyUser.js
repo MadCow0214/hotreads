@@ -22,7 +22,6 @@ export default {
         data: { verifyCode: null }
       });
 
-      console.log(process.env.JWT_SECRET);
       return { token: jwt.sign({ id: user.id }, process.env.JWT_SECRET) };
     }
   }

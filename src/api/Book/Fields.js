@@ -16,6 +16,18 @@ export default {
     },
     reviews: parent => {
       return prisma.book({ id: parent.id }).reviews();
+    },
+    isWanted: async (parent, __, { request }) => {
+      const { user } = request;
+      const { id } = parent;
+
+      if (!user) {
+        return false;
+      }
+
+      const result = await prisma.user({ id: user.id }).wantedBooks({ where: { id } });
+
+      return Boolean(result.length);
     }
   },
   Review: {
