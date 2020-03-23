@@ -1,0 +1,3 @@
+type Mutation {
+  toggleWanted(bookId: String!, curState: Boolean!): Boolean!
+}
