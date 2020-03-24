@@ -8,6 +8,10 @@ type User {
   uploadedBooks: [Book!]!
   wantedBooks: [Book!]!
   reviews: [Review!]!
+
+  # Computed Fields
+  fullName: String!
+  isSelf: Boolean!
 }
 
 type Book {
