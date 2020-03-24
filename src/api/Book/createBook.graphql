@@ -1,3 +1,12 @@
 type Mutation {
-  createBook(title: String!, author: String!, image: String, tags: [String!]): Book!
+  createBook(
+    title: String!
+    subtitle: String
+    category: Int!
+    authorId: String!
+    company: String!
+    image: String
+    desc: String
+    publishDate: String
+  ): Book!
 }

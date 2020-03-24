@@ -13,7 +13,7 @@ type User {
 type Book {
   id: ID!
   title: String!
-  subTitle: String!
+  subtitle: String
   category: Int!
   author: Author
   company: String

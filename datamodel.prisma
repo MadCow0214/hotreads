@@ -15,7 +15,7 @@ type User {
 type Book {
   id: ID! @id
   title: String! @unique
-  subTitle: String
+  subtitle: String
   category: Int!
   author: Author
   company: String

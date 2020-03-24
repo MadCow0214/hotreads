@@ -1,0 +1,3 @@
+type Query {
+  searchAuthor(term: String!, count: Int!): [Author!]!
+}
