@@ -4,7 +4,7 @@ export default {
   Query: {
     getBannerData: async () => {
       const starBest = await prisma.books({
-        orderBy: "avgStar_ASC",
+        orderBy: "avgStar_DESC",
         first: 4
       });
 
