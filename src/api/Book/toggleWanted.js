@@ -15,23 +15,21 @@ export default {
             wantedBooks: { disconnect: { id: bookId } }
           }
         });
-
-        return true;
+      } else {
+        await prisma.updateUser({
+          where: { id: user.id },
+          data: {
+            wantedBooks: { connect: { id: bookId } }
+          }
+        });
       }
 
-      await prisma.updateUser({
-        where: { id: user.id },
-        data: {
-          wantedBooks: { connect: { id: bookId } }
-        }
-      });
-
       const wantedCount = await prisma
-        .usersConnection({ where: { wantedBooks_some: { id: parent.id } } })
+        .usersConnection({ where: { wantedBooks_some: { id: bookId } } })
         .aggregate()
         .count();
 
-      prisma.updateBook({
+      await prisma.updateBook({
         where: { id: bookId },
         data: {
           wantedCount
