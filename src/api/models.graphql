@@ -1,8 +1,6 @@
 type User {
   id: ID!
   nickName: String!
-  firstName: String
-  lastName: String
   email: String!
   avatar: String
   uploadedBooks: [Book!]!
@@ -23,6 +21,8 @@ type Book {
   company: String
   image: String
   desc: String
+  avgStar: Float!
+  wantedCount: Int!
   publishDate: String!
   createdAt: String!
   uploader: User!
@@ -30,7 +30,7 @@ type Book {
   reviews: [Review!]!
 
   # Computed Fields
-  wantedUserCount: Int!
+  reviewCount: Int!
   isWanted: Boolean!
 }
 

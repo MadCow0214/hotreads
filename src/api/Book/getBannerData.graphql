@@ -1,0 +1,9 @@
+type BannerData {
+  starBest: [Book!]!
+  wantedBest: [Book!]!
+  newest: [Book!]!
+}
+
+type Query {
+  getBannerData: BannerData!
+}

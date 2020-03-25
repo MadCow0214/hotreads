@@ -9,7 +9,7 @@ export default {
     registerUser: async (_, args, { request }) => {
       checkAuthenticated(request, false);
 
-      const { nickName, email, password: plainPassword, firstName = "", lastName = "" } = args;
+      const { nickName, email, password: plainPassword } = args;
 
       const verifyCode = generateVerifyCode();
       const password = await bcrypt.hash(plainPassword, 10);
@@ -24,7 +24,7 @@ export default {
         if (user.verifyCode) {
           await prisma.updateUser({
             where: { email },
-            data: { nickName, firstName, lastName, password, verifyCode }
+            data: { nickName, password, verifyCode }
           });
 
           sendVerifyMail(email, verifyCode);
@@ -39,8 +39,6 @@ export default {
         nickName,
         email,
         password,
-        firstName,
-        lastName,
         verifyCode
       });
 

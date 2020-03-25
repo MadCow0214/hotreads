@@ -3,11 +3,5 @@ type RegisterUserResult {
 }
 
 type Mutation {
-  registerUser(
-    nickName: String!
-    firstName: String
-    lastName: String
-    email: String!
-    password: String!
-  ): RegisterUserResult!
+  registerUser(nickName: String!, email: String!, password: String!): RegisterUserResult!
 }

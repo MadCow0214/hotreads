@@ -1,8 +1,6 @@
 type User {
   id: ID! @id
   nickName: String @unique
-  firstName: String
-  lastName: String
   email: String! @unique
   avatar: String
   password: String!
@@ -22,6 +20,8 @@ type Book {
   image: String
   desc: String
   publishDate: DateTime!
+  avgStar: Float! @default(value: 0.0)
+  wantedCount: Int! @default(value: 0)
   createdAt: DateTime! @createdAt
   uploader: User @relation(name:"BookUploadedByUser")
   wantedUsers: [User!]! @relation(name:"BookWantedByUser")
@@ -42,4 +42,9 @@ type Author {
   name: String! @unique
   desc: String
   books: [Book!]!
+}
+
+type BookWantedByUser @relationTable {
+  user: User!
+  book: Book!
 }

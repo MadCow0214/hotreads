@@ -8,14 +8,14 @@ export default {
     uploader: parent => {
       return prisma.book({ id: parent.id }).uploader();
     },
-    wantedUserCount: parent => {
-      return prisma
-        .usersConnection({ where: { wantedBooks_some: { id: parent.id } } })
-        .aggregate()
-        .count();
-    },
     reviews: parent => {
       return prisma.book({ id: parent.id }).reviews();
+    },
+    reviewCount: parent => {
+      return prisma
+        .reviewsConnection({ where: { book: { id: parent.id } } })
+        .aggregate()
+        .count();
     },
     isWanted: async (parent, __, { request }) => {
       const { user } = request;

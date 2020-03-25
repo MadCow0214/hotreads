@@ -26,6 +26,18 @@ export default {
         }
       });
 
+      const wantedCount = await prisma
+        .usersConnection({ where: { wantedBooks_some: { id: parent.id } } })
+        .aggregate()
+        .count();
+
+      prisma.updateBook({
+        where: { id: bookId },
+        data: {
+          wantedCount
+        }
+      });
+
       return true;
     }
   }
