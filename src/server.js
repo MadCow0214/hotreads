@@ -6,15 +6,17 @@ import "./passport";
 import cors from "cors";
 import { authenticateJwt } from "./passport";
 import { checkAuthenticated } from "./middlewares";
+import helmet from "helmet";
 
 const server = new GraphQLServer({
   schema,
   context: ({ request }) => ({ request, checkAuthenticated })
 });
 
-server.express.use(logger("dev"));
-server.express.use(authenticateJwt);
 server.express.use(cors());
+server.express.use(logger("dev"));
+server.express.use(helmet());
+server.express.use(authenticateJwt);
 
 const PORT = process.env.PORT || 4000;
 server.start({ port: PORT }, () => console.log(`Server running on port ${PORT}`));
