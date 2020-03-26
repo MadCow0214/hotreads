@@ -21,7 +21,6 @@ server.start(
   {
     port: PORT,
     cors: {
-      credentials: true,
       origin: [process.env.FRONTEND_URL]
     }
   },
