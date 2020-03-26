@@ -46,7 +46,7 @@
     "prebuild": "prisma generate",
     "build": "babel ./src -d ./build",
     "postbuild": "cd src && copy ./api/**/*.graphql ../build",
-    "prestart": "npm run build",
+    "prestart": "build",
     "start": "node build/server.js"
   }
 }
