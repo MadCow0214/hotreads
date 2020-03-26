@@ -14,14 +14,14 @@
   },
   "homepage": "https://github.com/MadCow0214/hotreads#readme",
   "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
     "@babel/node": "^7.8.4",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.8.4",
-    "nodemon": "^2.0.2"
-  },
-  "dependencies": {
     "@babel/runtime": "^7.9.2",
     "bcrypt": "^4.0.1",
     "copy": "^0.3.2",
