@@ -17,6 +17,13 @@ server.express.use(helmet());
 server.express.use(authenticateJwt);
 
 const PORT = process.env.PORT || 4000;
-server.start({ port: PORT, cors: { origin: process.env.FRONTEND_URL } }, () =>
-  console.log(`Server running on port ${PORT}`)
+server.start(
+  {
+    port: PORT,
+    cors: {
+      credentials: true,
+      origin: [process.env.FRONTEND_URL]
+    }
+  },
+  () => console.log(`Server running on port ${PORT}`)
 );
