@@ -4,7 +4,7 @@ export default {
   Author: {
     bookCount: parent => {
       return prisma
-        .booksConnection({ where: { author_some: { id: parent.id } } })
+        .booksConnection({ where: { author: { id: parent.id } } })
         .aggregate()
         .count();
     }
