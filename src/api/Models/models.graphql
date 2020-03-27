@@ -3,13 +3,13 @@ type User {
   nickName: String!
   email: String!
   avatar: String
-  uploadedBooks: [Book!]!
-  wantedBooks: [Book!]!
   reviews: [Review!]!
 
   # Computed Fields
   fullName: String!
   isSelf: Boolean!
+  wantedBookCount: Int!
+  uploadedBookCount: Int!
 }
 
 type Book {

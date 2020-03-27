@@ -1,0 +1,3 @@
+type Query {
+  wantedBooks(nickName: String!, page: Int!): [Book!]!
+}
