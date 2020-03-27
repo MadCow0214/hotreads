@@ -17,6 +17,12 @@ export default {
         .aggregate()
         .count();
     },
+    wantedCount: parent => {
+      return prisma
+        .usersConnection({ where: { wantedBooks_some: { id: parent.id } } })
+        .aggregate()
+        .count();
+    },
     isWanted: async (parent, __, { request }) => {
       const { user } = request;
       const { id } = parent;
