@@ -47,5 +47,5 @@ type Author {
   id: ID!
   name: String!
   desc: String
-  books: [Book!]!
+  bookCount: Int!
 }

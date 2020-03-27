@@ -43,10 +43,5 @@ export default {
     book: parent => {
       return prisma.review({ id: parent.id }).book();
     }
-  },
-  Author: {
-    books: parent => {
-      return prisma.author({ id: parent.id }).books();
-    }
   }
 };
