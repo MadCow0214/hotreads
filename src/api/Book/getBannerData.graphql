@@ -5,5 +5,5 @@ type BannerData {
 }
 
 type Query {
-  getBannerData: BannerData!
+  getBannerData(bannerLength: Int!): BannerData!
 }
