@@ -26,8 +26,8 @@ export const sendVerifyMail = (adress, code) => {
   const email = {
     from: "admin@hotread.com",
     to: adress,
-    subject: "Verify Code for HOTREAD",
-    html: `Hello! Your verify code is [ <strong>${code}</strong> ].<br/>Copy paste on the app/website to start HOTREAD!`
+    subject: "HOTREAD 확인 코드",
+    html: `안녕하세요! 확인 코드는 [ <strong>${code}</strong> ] 입니다.<br/>Copy paste on the app/website to start HOTREAD!`
   };
 
   return sendMail(email);
