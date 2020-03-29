@@ -13,5 +13,5 @@ type Mutation {
     image: String
     desc: String
     publishDate: String
-  ): Book!
+  ): CreateBookResult!
 }
