@@ -1,3 +1,8 @@
+type CreateBookResult {
+  error: Int
+  book: Book
+}
+
 type Mutation {
   createBook(
     title: String!
