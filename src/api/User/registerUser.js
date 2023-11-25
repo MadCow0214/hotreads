@@ -1,4 +1,4 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 import bcrypt from "bcrypt";
 
 import { checkAuthenticated } from "../../middlewares";
@@ -14,15 +14,22 @@ export default {
       const verifyCode = generateVerifyCode();
       const password = await bcrypt.hash(plainPassword, 10);
 
-      const checkNickName = await prisma.$exists.user({ nickName });
-      if (checkNickName) {
+      const nickNameExist = await prisma.user.findUnique({ 
+        where: { nickName },
+        select: { id }
+      }) != null;
+
+      if (nickNameExist) {
         return { error: 1 };
       }
 
-      const user = await prisma.user({ email });
+      const user = await prisma.user.findUnique({ 
+        where: { email },
+      });
+
       if (user) {
         if (user.verifyCode) {
-          await prisma.updateUser({
+          await prisma.user.update({
             where: { email },
             data: { nickName, password, verifyCode }
           });
@@ -35,11 +42,13 @@ export default {
         return { error: 2 };
       }
 
-      await prisma.createUser({
-        nickName,
-        email,
-        password,
-        verifyCode
+      await prisma.user.create({
+        data: {
+          nickName,
+          email,
+          password,
+          verifyCode
+        }
       });
 
       sendVerifyMail(email, verifyCode);

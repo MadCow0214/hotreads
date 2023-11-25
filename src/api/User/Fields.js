@@ -1,14 +1,16 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   User: {
-    reviews: parent => {
-      return prisma.user({ id: parent.id }).reviews();
-    },
-    fullName: async parent => {
-      const { firstName, lastName } = await prisma.user({ id: parent.id });
+    reviews: async parent => {
+      const { reviews } = await prisma.user.findUnique({ 
+        where: { id: parent.id },
+        select: {
+          reviews: true,
+        }
+      });
 
-      return `${lastName}${firstName}`;
+      return reviews;
     },
     isSelf: (parent, __, { request }) => {
       const { user } = request;
@@ -19,17 +21,33 @@ export default {
 
       return parent.id === user.id;
     },
-    wantedBookCount: parent => {
-      return prisma
-        .booksConnection({ where: { wantedUsers_some: { id: parent.id } } })
-        .aggregate()
-        .count();
+    wantedBookCount: async parent => {
+      const { _count } = await prisma.user.findUnique({
+        where: { id: parent.id },
+        select: {
+          _count: {
+            select: {
+              wantedBooks: true
+            }
+          }
+        }
+      });
+
+      return _count.wantedBooks;
     },
-    uploadedBookCount: parent => {
-      return prisma
-        .booksConnection({ where: { uploader: { id: parent.id } } })
-        .aggregate()
-        .count();
+    uploadedBookCount: async parent => {
+      const { _count } = await prisma.user.findUnique({ 
+        where: { id: parent.id },
+        select: {
+          _count: {
+            select: {
+              uploadedBooks: true,
+            }
+          }
+        }
+      });
+
+      return _count.uploadedBooks;
     }
   }
 };

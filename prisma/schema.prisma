@@ -1,0 +1,58 @@
+model User {
+    id              Int         @id @default(autoincrement())
+    nickname        String?     @unique
+    email           String      @unique
+    avatar          String?
+    password        String
+    verifyCode      String?
+    uploadedBooks   Book[]      @relation(name:"uploaderRelation")
+    wantedBooks     Book[]      @relation(name:"wantedRelation")
+    reviews         Review[]
+}
+
+model Book {
+    id              Int         @id @default(autoincrement())
+    title           String      @unique
+    subtitle        String?
+    category        Int
+    author          Author?      @relation(fields: [authorId], references: [id])
+    authorId        Int?
+    company         String?
+    image           String?
+    desc            String?
+    publishDate     String
+    avgStar         Float       @default(0.0)
+    wantedCount     Int         @default(0)
+    createdAt       DateTime    @default(now())
+    uploader        User?       @relation(name:"uploaderRelation", fields: [uploaderId], references: [id])
+    uploaderId      Int?
+    wantedUsers     User[]      @relation(name:"wantedRelation")
+    reviews         Review[]
+}
+
+model Author {
+    id          Int         @id @default(autoincrement())
+    name        String      @unique
+    desc        String?
+    books       Book[]
+}
+
+model Review {
+    id          Int         @id @default(autoincrement())
+    user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId      Int
+    book        Book        @relation(fields: [bookId], references: [id], onDelete: Cascade)
+    bookId      Int
+    text        String?
+    star        Int
+    createdAt   DateTime    @default(now())
+}
+
+datasource db {
+    provider = "mysql"
+    url = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}

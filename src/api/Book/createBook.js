@@ -1,4 +1,4 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   Mutation: {
@@ -8,8 +8,12 @@ export default {
       const { title, subtitle, category, authorId, company, image, desc, publishDate } = args;
       const { user } = request;
 
-      const titleCheck = await prisma.$exists.book({ title });
-      if (titleCheck) {
+      const titleExist = await prisma.book.findUnique({ 
+        where: { title },
+        select: { title },
+      }) != null;
+
+      if (titleExist) {
         return { error: 1, book: null };
       }
 
@@ -17,23 +21,28 @@ export default {
         return { error: 2, book: null };
       }
 
-      const hasAuthor = await prisma.$exists.author({ id: authorId });
+      const hasAuthor = await prisma.author.findUnique({ 
+        where: { id: authorId }
+      }) != null;
+
       if (!hasAuthor) {
         return { error: 3, book: null };
       }
 
       return {
         error: null,
-        book: prisma.createBook({
-          title,
-          subtitle,
-          category,
-          author: { connect: { id: authorId } },
-          company,
-          image,
-          desc,
-          publishDate: new Date(publishDate),
-          uploader: { connect: { id: user.id } }
+        book: await prisma.book.create({
+          data: {
+            title,
+            subtitle,
+            category,
+            author: { connect: { id: authorId } },
+            company,
+            image,
+            desc,
+            publishDate: new Date(publishDate),
+            uploader: { connect: { id: user.id } }
+          }
         })
       };
     }

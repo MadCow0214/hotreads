@@ -1,27 +1,64 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   Book: {
-    author: parent => {
-      return prisma.book({ id: parent.id }).author();
+    author: async parent => {
+      const { author } = await prisma.book.findUnique({ 
+        where: { id: parent.id },
+        select: {
+          author: true
+        }
+      });
+
+      return author;
     },
-    uploader: parent => {
-      return prisma.book({ id: parent.id }).uploader();
+    uploader: async parent => {
+      const { uploader } = await prisma.book.findUnique({ 
+        where: { id: parent.id },
+        select: {
+          uploader: true
+        }
+      });
+
+      return uploader;
     },
-    reviews: parent => {
-      return prisma.book({ id: parent.id }).reviews();
+    reviews: async parent => {
+      const { reviews } = await prisma.book.findUnique({ 
+        where: { id: parent.id },
+        select: {
+          reviews: true
+        }
+      });
+
+      return reviews;
     },
-    reviewCount: parent => {
-      return prisma
-        .reviewsConnection({ where: { book: { id: parent.id } } })
-        .aggregate()
-        .count();
+    reviewCount: async parent => {
+      const { _count } = await prisma.book.findUnique({
+        where: { id: parent.id },
+        select: {
+          _count: {
+            select: {
+              reviews: true
+            }
+          }
+        }
+      });
+
+      return _count.reviews;
     },
-    wantedCount: parent => {
-      return prisma
-        .usersConnection({ where: { wantedBooks_some: { id: parent.id } } })
-        .aggregate()
-        .count();
+    wantedCount: async parent => {
+      const { _count } = await prisma.book.findUnique({
+        where: { id: parent.id },
+        select: {
+          _count: {
+            select: {
+              wantedUsers: true
+            }
+          }
+        }
+      });
+
+      return _count.wantedUsers;
     },
     isWanted: async (parent, __, { request }) => {
       const { user } = request;
@@ -31,17 +68,41 @@ export default {
         return false;
       }
 
-      const result = await prisma.user({ id: user.id }).wantedBooks({ where: { id } });
+      const result = await prisma.user.findUnique({ 
+        where: { id: user.id },
+        select: {
+          wantedBooks: {
+            where: { id },
+            select: {
+              id: true
+            }
+          }
+        }
+      });
 
-      return Boolean(result.length);
+      return Boolean(result.wantedBooks.length);
     }
   },
   Review: {
-    user: parent => {
-      return prisma.review({ id: parent.id }).user();
+    user: async parent => {
+      const { user } = await prisma.review.findUnique({ 
+        where: { id: parent.id },
+        select: {
+          user: true
+        },
+      });
+
+      return user;
     },
-    book: parent => {
-      return prisma.review({ id: parent.id }).book();
+    book: async parent => {
+      const { book } = await prisma.review.findUnique({
+        where: { id: parent.id },
+        select: {
+          book: true
+        }
+      });
+
+      return book;
     }
   }
 };

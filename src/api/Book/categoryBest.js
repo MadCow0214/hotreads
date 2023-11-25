@@ -1,14 +1,16 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   Query: {
-    categoryBest: (_, args) => {
+    categoryBest: async (_, args) => {
       const { category } = args;
 
-      return prisma.books({
+      return await prisma.book.findMany({
         where: { category },
-        orderBy: "avgStar_DESC",
-        first: 9
+        orderBy: {
+          avgStar: 'desc',
+        },
+        take: 9
       });
     }
   }

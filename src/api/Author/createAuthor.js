@@ -1,15 +1,17 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   Mutation: {
-    createAuthor: (_, args, { request, checkAuthenticated }) => {
+    createAuthor: async (_, args, { request, checkAuthenticated }) => {
       checkAuthenticated(request, true);
 
       const { name, desc } = args;
 
-      return prisma.createAuthor({
-        name,
-        desc
+      return await prisma.author.create({
+        data: {
+          name,
+          desc
+        }
       });
     }
   }

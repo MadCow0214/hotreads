@@ -1,11 +1,21 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   Query: {
-    bookByAuthor: (_, args) => {
+    bookByAuthor: async (_, args) => {
       const { name, page } = args;
 
-      return prisma.author({ name }).books({ first: 12, skip: 12 * (page - 1) });
+      const { books } = await prisma.author.findUnique({ 
+        where: { name },
+        select: {
+          books: {
+            take: 12,
+            skip: 12 * (page - 1)
+          }
+        }
+      });
+      
+      return books;
     }
   }
 };

@@ -1,4 +1,4 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   Mutation: {
@@ -7,22 +7,28 @@ export default {
       const { user } = request;
       const { bookId, text, star } = args;
 
-      let { avgStar } = await prisma.book({ id: bookId });
-      const reviewCount = await prisma
-        .reviewsConnection({ where: { book: { id: bookId } } })
-        .aggregate()
-        .count();
+      let { avgStar, reviews } = await prisma.book.findUnique({ 
+        where: { id: bookId },
+        select: {
+          avgStar: true,
+          reviews: true
+        }
+      });
+
+      const reviewCount = reviews.count();
 
       avgStar = (avgStar * reviewCount + star) / (reviewCount + 1);
 
-      const review = await prisma.createReview({
-        user: { connect: { id: user.id } },
-        book: { connect: { id: bookId } },
-        text,
-        star
+      const review = await prisma.review.create({
+        data: {
+          user: { connect: { id: user.id } },
+          book: { connect: { id: bookId } },
+          text,
+          star
+        }
       });
 
-      await prisma.updateBook({
+      await prisma.book.update({
         where: { id: bookId },
         data: {
           avgStar

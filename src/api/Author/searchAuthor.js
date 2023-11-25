@@ -1,4 +1,4 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   Query: {
@@ -9,9 +9,9 @@ export default {
         return [];
       }
 
-      const result = await prisma.authors({
-        where: { name_contains: term },
-        first: count
+      const result = await prisma.author.findMany({
+        where: { name: { contains: term } },
+        take: count
       });
 
       return result;

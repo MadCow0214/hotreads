@@ -1,6 +1,6 @@
 {
   "name": "hotreads",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "goodread-like service for nomad hackathon",
   "main": "./src/server.js",
   "repository": {
@@ -14,7 +14,9 @@
   },
   "homepage": "https://github.com/MadCow0214/hotreads#readme",
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.2",
+    "prisma": "^5.6.0"
   },
   "dependencies": {
     "@babel/cli": "^7.8.4",
@@ -23,29 +25,28 @@
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.8.4",
     "@babel/runtime": "^7.9.2",
-    "bcrypt": "^4.0.1",
-    "copy": "^0.3.2",
+    "@prisma/client": "^5.6.0",
+    "bcrypt": "^5.1.1",
     "dotenv": "^8.2.0",
-    "google-auth-library": "^5.10.1",
-    "graphql-tools": "^4.0.6",
-    "graphql-yoga": "^1.18.3",
-    "helmet": "^3.22.0",
-    "jsonwebtoken": "^8.5.1",
-    "merge-graphql-schemas": "^1.7.6",
-    "morgan": "^1.9.1",
-    "nodemailer": "^6.4.4",
+    "google-auth-library": "^9.2.0",
+    "graphql": "^15.0.0",
+    "graphql-tools": "^9.0.0",
+    "graphql-yoga": "^5.0.0",
+    "helmet": "^3.23.3",
+    "jsonwebtoken": "^9.0.2",
+    "merge-graphql-schemas": "^1.7.8",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.7",
     "nodemailer-sendgrid-transport": "^0.2.0",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
-    "prisma": "^1.34.10",
-    "prisma-client-lib": "^1.34.10"
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0"
   },
   "scripts": {
     "dev": "nodemon --exec babel-node ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "prisma generate",
+    "prebuild": "prisma generate && prisma db push",
     "build": "babel ./src -d ./build",
-    "postbuild": "cd src && copy ./api/**/*.graphql ../build",
+    "postbuild": "cd src && copy ./api/*/*.graphql ./build",
     "start": "node build/server.js"
   }
 }

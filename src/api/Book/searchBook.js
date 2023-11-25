@@ -1,11 +1,14 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   Query: {
-    searchBook: (_, args) => {
+    searchBook: async (_, args) => {
       const { term, count } = args;
 
-      return prisma.books({ where: { title_contains: term }, first: count });
+      return await prisma.book.findMany({ 
+        where: { title: { contains: term } },
+        take: count
+      });
     }
   }
 };

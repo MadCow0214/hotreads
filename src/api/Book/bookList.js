@@ -1,13 +1,13 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   Query: {
-    bookList: (_, args) => {
+    bookList: async (_, args) => {
       const { category, page } = args;
 
-      return prisma.books({
+      return await prisma.book.findMany({
         where: { category: category ? category : undefined },
-        first: 12,
+        take: 12,
         skip: 12 * (page - 1)
       });
     }

@@ -1,4 +1,4 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 import bcrypt from "bcrypt";
 
 export default {
@@ -20,7 +20,7 @@ export default {
       }
 
       try {
-        await prisma.updateUser({
+        await prisma.user.update({
           where: { id: user.id },
           data: {
             avatar: avatar ? avatar : user.avatar,

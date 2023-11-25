@@ -1,11 +1,13 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from '../prismaClient';
 
 export default {
   Query: {
-    authorByName: (_, args) => {
+    authorByName: async (_, args) => {
       const { name } = args;
 
-      return prisma.author({ name });
+      return await prisma.author.findUnique({ 
+        where: { name }
+      });
     }
   }
 };

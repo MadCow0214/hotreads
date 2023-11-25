@@ -1,4 +1,4 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 import jwt from "jsonwebtoken";
 
 export default {
@@ -8,7 +8,10 @@ export default {
 
       const { email, verifyCode } = args;
 
-      const user = await prisma.user({ email });
+      const user = await prisma.user.findUnique({ 
+        where: { email }
+      });
+
       if (!user) {
         throw Error("Can't find user");
       }
@@ -17,7 +20,7 @@ export default {
         return { error: 1 };
       }
 
-      await prisma.updateUser({
+      await prisma.user.update({
         where: { email },
         data: { verifyCode: null }
       });

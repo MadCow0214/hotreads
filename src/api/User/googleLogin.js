@@ -1,4 +1,4 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 import { OAuth2Client } from "google-auth-library";
 import jwt from "jsonwebtoken";
 
@@ -18,14 +18,17 @@ export default {
 
       const payload = ticket.getPayload();
 
-      let user = await prisma.user({ email: payload.email });
+      let user = await prisma.user.findUnique({ 
+        where: { email: payload.email }
+      });
+
       if (!user) {
-        user = await prisma.createUser({
-          nickName: payload.name,
-          firstName: payload.given_name,
-          lastName: payload.family_name,
-          email: payload.email,
-          avatar: payload.picture
+        user = await prisma.user.create({
+          data: {
+            nickName: payload.name,
+            email: payload.email,
+            avatar: payload.picture
+          }
         });
       }
 

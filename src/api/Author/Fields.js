@@ -1,15 +1,26 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   Author: {
-    books: parent => {
-      return prisma.author({ id: parent.id }).books();
+    books: async parent => {
+      return await prisma.author.findUnique({ 
+        where: { id: parent.id },
+        select: {
+          books: true
+        }
+      })
     },
-    bookCount: parent => {
-      return prisma
-        .booksConnection({ where: { author: { id: parent.id } } })
-        .aggregate()
-        .count();
+    bookCount: async parent => {
+      const {_count} = await prisma.author.findUnique({ 
+        where: { id: parent.id },
+        select: {
+          _count: {
+            select: { books: true }
+          }
+        }
+      });
+
+      return _count.books;
     }
   }
 };

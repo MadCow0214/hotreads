@@ -1,4 +1,4 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -9,7 +9,10 @@ export default {
 
       const { email, password } = args;
 
-      const user = await prisma.user({ email });
+      const user = await prisma.user.findUnique({ 
+        where: { email } 
+      });
+      
       if (!user) {
         return { error: 1 };
       }

@@ -1,4 +1,4 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 import { sendVerifyMail } from "../../util";
 
 export default {
@@ -8,7 +8,9 @@ export default {
 
       const { email } = args;
 
-      const user = await prisma.user({ email });
+      const user = await prisma.user.findUnique({ 
+        where: { email }
+      });
 
       if (!user) {
         return false;

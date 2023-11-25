@@ -1,9 +1,11 @@
-import { prisma } from "../../../generated/prisma-client";
+import prisma from "../prismaClient";
 
 export default {
   Query: {
-    bookByTitle: (_, { title }) => {
-      return prisma.book({ title });
+    bookByTitle: async (_, { title }) => {
+      return await prisma.book.findUnique({ 
+        where: { title }
+      });
     }
   }
 };
