@@ -49,7 +49,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "prisma generate && prisma db push",
     "build": "babel ./src -d ./build",
-    "postbuild": "cd src && copy ./api/*/*.graphql ./build",
+    "postbuild": "cd src && copy ./api/**/*.graphql ./build",
     "start": "node build/server.js"
   }
 }
