@@ -1,6 +1,9 @@
 {
   "name": "hotreads",
   "version": "2.0.0",
+  "engines": {
+    "node": "20.x"
+  },
   "description": "goodread-like service for nomad hackathon",
   "main": "./src/server.js",
   "repository": {
