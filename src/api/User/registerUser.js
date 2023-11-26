@@ -1,4 +1,4 @@
-import prisma from "../prismaClient";
+import prisma from "../../prismaClient";
 import bcrypt from "bcrypt";
 
 import { checkAuthenticated } from "../../middlewares";

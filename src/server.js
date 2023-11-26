@@ -1,28 +1,31 @@
 import "./env";
-import { GraphQLServer } from "graphql-yoga";
-import logger from "morgan";
 import schema from "./schema";
+import { createYoga } from "graphql-yoga";
+import express from "express"
+import logger from "morgan";
 import "./passport";
 import { authenticateJwt } from "./passport";
 import { checkAuthenticated } from "./middlewares";
 import helmet from "helmet";
 
-const server = new GraphQLServer({
+const app = express();
+
+const yoga = createYoga({
   schema,
-  context: ({ request }) => ({ request, checkAuthenticated })
+  context: ({ request }) => ({ request, checkAuthenticated }),
+  cors: {
+    origin: [process.env.FRONTEND_URL]
+  },
 });
 
-server.express.use(logger("dev"));
-server.express.use(helmet());
-server.express.use(authenticateJwt);
+app.use(logger("dev"));
+app.use(helmet());
+app.use(authenticateJwt);
+
+app.use(yoga.graphqlEndpoint, yoga);
 
 const PORT = process.env.PORT || 4000;
-server.start(
-  {
-    port: PORT,
-    cors: {
-      origin: [process.env.FRONTEND_URL]
-    }
-  },
+app.listen(
+  PORT, 
   () => console.log(`Server running on port ${PORT}`)
 );

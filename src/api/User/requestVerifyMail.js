@@ -1,4 +1,4 @@
-import prisma from "../prismaClient";
+import prisma from "../../prismaClient";
 import { sendVerifyMail } from "../../util";
 
 export default {
