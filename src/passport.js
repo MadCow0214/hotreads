@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
-import { prisma } from "./prismaClient";
+import prisma from "./prismaClient";
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -25,6 +25,10 @@ const vertifyUser = async (payload, done) => {
 
 export const authenticateJwt = (req, res, next) => {
   return passport.authenticate("jwt", { session: false }, (error, user) => {
+    if(error){
+      console.error(error);
+    }
+
     if (user) {
       req.user = user;
     }

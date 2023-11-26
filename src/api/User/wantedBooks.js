@@ -2,10 +2,10 @@ import prisma from "../../prismaClient";
 
 export default {
   Query: {
-    wantedBooks: (_, args) => {
+    wantedBooks: async (_, args) => {
       const { nickName, page } = args;
 
-      const { wantedBooks } = prisma.user.findUnique({ 
+      const { wantedBooks } = await prisma.user.findUnique({ 
         where: { nickName },
         select: {
           wantedBooks: {
