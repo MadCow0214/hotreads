@@ -7,22 +7,21 @@ import "./passport";
 import { authenticateJwt } from "./passport";
 import { checkAuthenticated } from "./middlewares";
 import helmet from "helmet";
-import cors from "cors"
 
 const app = express();
 
 const yoga = createYoga({
   schema,
   context: ({ request }) => ({ request, checkAuthenticated }),
+  cors: {
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  }
 });
 
 app.use(logger("dev"));
 app.use(helmet());
 app.use(authenticateJwt);
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true,
-}));
 
 app.use(yoga.graphqlEndpoint, yoga);
 
