@@ -27,6 +27,7 @@ export default {
           data: {
             nickName: payload.name,
             email: payload.email,
+            password: process.env.GOOGLE_USER_HASHEDPASSWORD,
             avatar: payload.picture
           }
         });
