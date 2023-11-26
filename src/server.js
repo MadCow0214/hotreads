@@ -14,7 +14,7 @@ const yoga = createYoga({
   schema,
   context: ({ request }) => ({ request, checkAuthenticated }),
   cors: {
-    origin: [process.env.FRONTEND_URL]
+    origin: process.env.FRONTEND_URL
   },
 });
 
