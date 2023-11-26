@@ -1,5 +1,5 @@
 model User {
-    id              Int         @id @default(autoincrement())
+    id              String      @id @default(uuid())
     nickname        String?     @unique
     email           String      @unique
     avatar          String?
@@ -11,12 +11,12 @@ model User {
 }
 
 model Book {
-    id              Int         @id @default(autoincrement())
+    id              String      @id @default(uuid())
     title           String      @unique
     subtitle        String?
     category        Int
     author          Author?      @relation(fields: [authorId], references: [id])
-    authorId        Int?
+    authorId        String?
     company         String?
     image           String?
     desc            String?
@@ -25,24 +25,24 @@ model Book {
     wantedCount     Int         @default(0)
     createdAt       DateTime    @default(now())
     uploader        User?       @relation(name:"uploaderRelation", fields: [uploaderId], references: [id])
-    uploaderId      Int?
+    uploaderId      String?
     wantedUsers     User[]      @relation(name:"wantedRelation")
     reviews         Review[]
 }
 
 model Author {
-    id          Int         @id @default(autoincrement())
+    id          String      @id @default(uuid())
     name        String      @unique
     desc        String?
     books       Book[]
 }
 
 model Review {
-    id          Int         @id @default(autoincrement())
+    id          String      @id @default(uuid())
     user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId      Int
+    userId      String
     book        Book        @relation(fields: [bookId], references: [id], onDelete: Cascade)
-    bookId      Int
+    bookId      String
     text        String?
     star        Int
     createdAt   DateTime    @default(now())
