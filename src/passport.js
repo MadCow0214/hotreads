@@ -17,11 +17,13 @@ const vertifyUser = async (payload, done) => {
       return done(null, user);
     }
 
-    return null, false;
+    return done(null, false);
   } catch (error) {
     return done(error, false);
   }
 };
+
+passport.use(new Strategy(jwtOptions, vertifyUser));
 
 export const authenticateJwt = (req, res, next) => {
   return passport.authenticate("jwt", { session: false }, (error, user) => {
@@ -35,6 +37,3 @@ export const authenticateJwt = (req, res, next) => {
     next();
   })(req, res, next);
 };
-
-passport.use(new Strategy(jwtOptions, vertifyUser));
-passport.initialize();

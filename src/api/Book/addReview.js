@@ -2,8 +2,8 @@ import prisma from "../../prismaClient";
 
 export default {
   Mutation: {
-    addReview: async (_, args, { request, checkAuthenticated }) => {
-      checkAuthenticated(request, true);
+    addReview: async (_, args, { req, checkAuthenticated }) => {
+      checkAuthenticated(req, true);
       const { user } = request;
       const { bookId, text, star } = args;
 

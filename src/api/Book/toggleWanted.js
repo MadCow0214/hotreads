@@ -2,8 +2,8 @@ import prisma from "../../prismaClient";
 
 export default {
   Mutation: {
-    toggleWanted: async (_, args, { request, checkAuthenticated }) => {
-      checkAuthenticated(request, true);
+    toggleWanted: async (_, args, { req, checkAuthenticated }) => {
+      checkAuthenticated(req, true);
 
       const { bookId, curState } = args;
       const { user } = request;

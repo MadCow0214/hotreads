@@ -2,10 +2,10 @@ import prisma from "../../prismaClient";
 
 export default {
   Query: {
-    me: (_, __, { request, checkAuthenticated }) => {
-      checkAuthenticated(request, true);
+    me: (_, __, { req, checkAuthenticated }) => {
+      checkAuthenticated(req, true);
 
-      return request.user;
+      return req.user;
     }
   }
 };

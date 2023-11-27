@@ -3,7 +3,7 @@ import { sendVerifyMail } from "../../util";
 
 export default {
   Mutation: {
-    requestVerifyMail: async (_, args, { request, checkAuthenticated }) => {
+    requestVerifyMail: async (_, args, { req, checkAuthenticated }) => {
       checkAuthenticated(request, false);
 
       const { email } = args;

@@ -6,7 +6,7 @@ const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export default {
   Mutation: {
-    googleLogin: async (_, args, { request, checkAuthenticated }) => {
+    googleLogin: async (_, args, { req, checkAuthenticated }) => {
       checkAuthenticated(request, false);
 
       const { tokenId } = args;

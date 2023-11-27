@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 
 export default {
   Mutation: {
-    editProfile: async (_, args, { request, checkAuthenticated }) => {
-      checkAuthenticated(request, true);
+    editProfile: async (_, args, { req, checkAuthenticated }) => {
+      checkAuthenticated(req, true);
 
       const { user } = request;
       const { avatar, curPassword, newPassword } = args;

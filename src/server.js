@@ -10,20 +10,23 @@ import helmet from "helmet";
 
 const app = express();
 
+app.use(logger("dev"));
+app.use(helmet());
+
 const yoga = createYoga({
   schema,
-  context: ({ request }) => ({ request, checkAuthenticated }),
+  context: ({ request }) => ({ checkAuthenticated }),
   cors: {
     origin: process.env.FRONTEND_URL,
     credentials: true,
   }
 });
 
-app.use(logger("dev"));
-app.use(helmet());
-app.use(authenticateJwt);
+const yogaRouter = express.Router()
+yogaRouter.use(authenticateJwt);
+yogaRouter.use(yoga);
 
-app.use(yoga.graphqlEndpoint, yoga);
+app.use(yoga.graphqlEndpoint, yogaRouter);
 
 const PORT = process.env.PORT || 4000;
 app.listen(
