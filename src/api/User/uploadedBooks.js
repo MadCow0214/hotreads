@@ -5,7 +5,7 @@ export default {
     uploadedBooks: async (_, args) => {
       const { nickName, page } = args;
 
-      return await prisma.user.findUnique({ 
+      const { uploadedBooks } = await prisma.user.findUnique({ 
         where: { nickName },
         select: {
           uploadedBooks: {
@@ -14,6 +14,8 @@ export default {
           }
         }
       });
+
+      return uploadedBooks;
     }
   }
 };
