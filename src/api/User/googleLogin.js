@@ -15,18 +15,9 @@ export default {
       checkAuthenticated(req, false);
 
       const { tokenId } = args;
-      const response = await axios.get(
+      const {data: {email, name, picture}} = await axios.get(
         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenId}`
       );
-
-      const email = response.email;
-      const name = response.name;
-      const picture = response.picture;
-
-      console.info(email);
-      console.info(name);
-      console.info(picture);
-      console.info(response);
       
       let user = await prisma.user.findUnique({ 
         where: { email }
