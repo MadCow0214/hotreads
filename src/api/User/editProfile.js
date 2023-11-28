@@ -6,7 +6,7 @@ export default {
     editProfile: async (_, args, { req, checkAuthenticated }) => {
       checkAuthenticated(req, true);
 
-      const { user } = request;
+      const { user } = req;
       const { avatar, curPassword, newPassword } = args;
 
       let cryptPassword = "";

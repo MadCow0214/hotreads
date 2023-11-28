@@ -12,8 +12,8 @@ export default {
 
       return reviews;
     },
-    isSelf: (parent, __, { request }) => {
-      const { user } = request;
+    isSelf: (parent, __, { req }) => {
+      const { user } = req;
 
       if (!user) {
         return false;

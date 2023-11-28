@@ -6,7 +6,7 @@ import { generateVerifyCode, sendVerifyMail } from "../../util";
 
 export default {
   Mutation: {
-    registerUser: async (_, args, { request }) => {
+    registerUser: async (_, args, { req }) => {
       checkAuthenticated(req, false);
 
       const { nickName, email, password: plainPassword } = args;

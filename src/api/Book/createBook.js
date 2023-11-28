@@ -6,7 +6,7 @@ export default {
       checkAuthenticated(req, true);
 
       const { title, subtitle, category, authorId, company, image, desc, publishDate } = args;
-      const { user } = request;
+      const { user } = req;
 
       const titleExist = await prisma.book.findUnique({ 
         where: { title },

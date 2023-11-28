@@ -4,7 +4,7 @@ export default {
   Mutation: {
     addReview: async (_, args, { req, checkAuthenticated }) => {
       checkAuthenticated(req, true);
-      const { user } = request;
+      const { user } = req;
       const { bookId, text, star } = args;
 
       let { avgStar, reviews } = await prisma.book.findUnique({ 

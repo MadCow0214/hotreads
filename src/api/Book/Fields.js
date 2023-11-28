@@ -60,8 +60,8 @@ export default {
 
       return _count.wantedUsers;
     },
-    isWanted: async (parent, __, { request }) => {
-      const { user } = request;
+    isWanted: async (parent, __, { req }) => {
+      const { user } = req;
       const { id } = parent;
 
       if (!user) {

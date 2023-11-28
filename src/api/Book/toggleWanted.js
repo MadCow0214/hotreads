@@ -6,7 +6,7 @@ export default {
       checkAuthenticated(req, true);
 
       const { bookId, curState } = args;
-      const { user } = request;
+      const { user } = req;
 
       if (curState) {
         await prisma.user.update({
