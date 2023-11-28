@@ -1,6 +1,7 @@
 import prisma from "../../prismaClient";
 import { OAuth2Client } from "google-auth-library";
 import jwt from "jsonwebtoken";
+import axios from "axios";
 
 const googleClient = new OAuth2Client(
   process.env.GOOGLE_CLIENT_ID,
@@ -15,23 +16,21 @@ export default {
 
       const { tokenId } = args;
 
-      const { email } = await googleClient.getTokenInfo(tokenId);
-
-      if (!email) {
-        throw Error('token info don\'t have email.');
-      }
+      const { name, email, picture } = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+        access_token: tokenId
+      });
       
       let user = await prisma.user.findUnique({ 
-        where: { email: payload.email }
+        where: { email }
       });
 
       if (!user) {
         user = await prisma.user.create({
           data: {
-            nickName: payload.name,
-            email: payload.email,
+            nickName: name,
+            email: email,
             password: process.env.GOOGLE_USER_HASHEDPASSWORD,
-            avatar: payload.picture
+            avatar: picture
           }
         });
       }
