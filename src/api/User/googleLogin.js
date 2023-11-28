@@ -16,6 +16,8 @@ export default {
 
       const { tokenId } = args;
 
+      console.log(tokenId);
+
       const { name, email, picture } = await axios.get(
         `https://www.googleapis.com/oauth2/v1/userinfo?accress_token=${tokenId}`
       );
