@@ -15,13 +15,12 @@ export default {
 
       const { tokenId } = args;
 
-      const ticket = await googleClient.verifyIdToken({
-        idToken: tokenId,
-        audience: process.env.GOOGLE_CLIENT_ID
-      });
+      const { email } = await googleClient.getTokenInfo(tokenId);
 
-      const payload = ticket.getPayload();
-
+      if (!email) {
+        throw Error('token info don\'t have email.');
+      }
+      
       let user = await prisma.user.findUnique({ 
         where: { email: payload.email }
       });
