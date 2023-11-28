@@ -12,8 +12,7 @@ export const generateVerifyCode = () => {
 export const sendMail = email => {
   const options = {
     auth: {
-      api_user: process.env.SENDGRID_USERNAME,
-      api_key: process.env.SENDGRID_PASSWORD
+      api_key: process.env.SENDGRID_APIKEY
     }
   };
 
