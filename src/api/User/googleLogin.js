@@ -17,7 +17,7 @@ export default {
       const { tokenId } = args;
 
       const { name, email, picture } = await axios.get(
-        `https://www.googleapis.com/oauth2/v3/userinfo?accress_token=${tokenId}`
+        `https://www.googleapis.com/oauth2/v1/userinfo?accress_token=${tokenId}`
       );
       
       let user = await prisma.user.findUnique({ 
