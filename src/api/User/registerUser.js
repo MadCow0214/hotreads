@@ -16,7 +16,9 @@ export default {
 
       const nickNameExist = await prisma.user.findUnique({ 
         where: { nickName },
-        select: { id }
+        select: { 
+          id: true
+        }
       }) != null;
 
       if (nickNameExist) {
