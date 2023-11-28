@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 export default {
   Mutation: {
     verifyUser: async (_, args, { req, checkAuthenticated }) => {
-      checkAuthenticated(request, false);
+      checkAuthenticated(req, false);
 
       const { email, verifyCode } = args;
 

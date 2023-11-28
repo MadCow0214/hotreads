@@ -4,7 +4,7 @@ import { sendVerifyMail } from "../../util";
 export default {
   Mutation: {
     requestVerifyMail: async (_, args, { req, checkAuthenticated }) => {
-      checkAuthenticated(request, false);
+      checkAuthenticated(req, false);
 
       const { email } = args;
 

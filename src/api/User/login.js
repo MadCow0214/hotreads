@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 export default {
   Mutation: {
     login: async (_, args, { req, checkAuthenticated }) => {
-      checkAuthenticated(request, false);
+      checkAuthenticated(req, false);
 
       const { email, password } = args;
 
