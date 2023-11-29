@@ -3,7 +3,6 @@ import prisma from "../../prismaClient";
 export default {
   Book: {
     author: async parent => {
-      console.info("finding author");
       const { author } = await prisma.book.findUnique({ 
         where: { id: parent.id },
         select: {
