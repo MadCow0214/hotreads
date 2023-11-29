@@ -19,7 +19,7 @@ model Book {
     authorId        String?
     company         String?
     image           String?
-    desc            String?
+    desc            String?     @db.VarChar(8192)
     publishDate     DateTime
     avgStar         Float       @default(0.0)
     wantedCount     Int         @default(0)
@@ -33,7 +33,7 @@ model Book {
 model Author {
     id          String      @id @default(uuid())
     name        String      @unique
-    desc        String?
+    desc        String?     @db.VarChar(8192)
     books       Book[]
 }
 
