@@ -20,7 +20,7 @@ model Book {
     company         String?
     image           String?
     desc            String?     @db.VarChar(8192)
-    publishDate     DateTime
+    publishDate     DateTime    @db.Date
     avgStar         Float       @default(0.0)
     wantedCount     Int         @default(0)
     createdAt       DateTime    @default(now())
