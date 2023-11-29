@@ -15,15 +15,13 @@ export default {
             wantedBooks: {
               update: {
                 where: { id: bookId },
-                update: {
-                  data: {
-                    wantedCount: {
-                      decrement: 1,
-                    }
-                  }
+                data: {
+                  wantedCount: {
+                    decrement: 1,
+                  },
                 }
               },
-              disconnect: [{id: bookId}],
+              disconnect: [{ id: bookId }],
             }
           }
         });
