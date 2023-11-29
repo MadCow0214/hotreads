@@ -15,7 +15,7 @@ export default {
         }
       });
 
-      const reviewCount = reviews.count();
+      const reviewCount = reviews.length;
 
       avgStar = (avgStar * reviewCount + star) / (reviewCount + 1);
 
