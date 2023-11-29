@@ -13,7 +13,6 @@ export default {
           where: { id: user.id },
           data: {
             wantedBooks: {
-              disconnect: [{id: bookId}],
               update: {
                 where: { id: bookId },
                 update: {
@@ -23,7 +22,8 @@ export default {
                     }
                   }
                 }
-              }
+              },
+              disconnect: [{id: bookId}],
             }
           }
         });
