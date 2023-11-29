@@ -10,7 +10,9 @@ export default {
 
       const titleExist = await prisma.book.findUnique({ 
         where: { title },
-        select: { title },
+        select: { 
+          id: true,
+         },
       }) != null;
 
       if (titleExist) {
